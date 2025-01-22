@@ -30,11 +30,12 @@ import {
 } from '@/lib/actions/file.actions';
 import { usePathname } from 'next/navigation';
 import { FileDetails, ShareInput } from '@/components/ActionsModalContent';
+import { ActionType } from '@/types';
 
 const ActionDropdown = ({ file }: { file: Models.Document }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [action, setAction] = useState(null);
+  const [action, setAction] = useState<ActionType | null>(null);
   const [name, setName] = useState(file.name);
   const [isLoading, setIsLoading] = useState(false);
   const [emails, setEmails] = useState<string[]>([]);
@@ -88,7 +89,7 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
     const { value, label } = action;
 
     return (
-      <DialogContent className="shad-dialog button">
+      <DialogContent className="shad-dialog button max-w-96">
         <DialogHeader className="flex flex-col gap-3">
           <DialogTitle className="text-center text-light-100">
             {label}
@@ -110,8 +111,8 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
           )}
           {value === 'delete' && (
             <p className="delete-confirmation">
-              Are you sure you want to delete{` `}
-              <span className="delete-file-name">{file.name}</span>?
+              Are you sure you want to delete
+              <span className="delete-file-name">{file.name + '?'}</span>
             </p>
           )}
         </DialogHeader>

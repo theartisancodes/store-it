@@ -20,6 +20,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { verifySecret, sendEmailOTP } from '@/lib/actions/user.actions';
 import { useRouter } from 'next/navigation';
+import { notifyError, notifySuccess } from '@/hooks/useToastify';
 
 const OtpModal = ({
   accountId,
@@ -37,16 +38,14 @@ const OtpModal = ({
     e.preventDefault();
     setIsLoading(true);
 
-    console.log({ accountId, password });
-
     try {
       const sessionId = await verifySecret({ accountId, password });
-
-      console.log({ sessionId });
-
+      notifySuccess('OTP verified successfully. Routing you to dashboard...');
       if (sessionId) router.push('/');
     } catch (error) {
-      console.log('Failed to verify OTP', error);
+      const errorMsg =
+        error instanceof Error ? error.message : 'Failed to verify OTP.';
+      notifyError(errorMsg);
     }
 
     setIsLoading(false);

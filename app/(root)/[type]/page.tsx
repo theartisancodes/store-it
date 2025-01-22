@@ -4,6 +4,7 @@ import { getFiles } from '@/lib/actions/file.actions';
 import { Models } from 'node-appwrite';
 import Card from '@/components/Card';
 import { getFileTypesParams } from '@/lib/utils';
+import { FileType, SearchParamProps } from '@/types';
 
 const Page = async ({ searchParams, params }: SearchParamProps) => {
   const type = ((await params)?.type as string) || '';
@@ -31,8 +32,6 @@ const Page = async ({ searchParams, params }: SearchParamProps) => {
           </div>
         </div>
       </section>
-
-      {/* Render the files */}
       {files.total > 0 ? (
         <section className="file-list">
           {files.documents.map((file: Models.Document) => (

@@ -300,11 +300,11 @@
     }
 
     .delete-confirmation {
-        @apply text-center text-light-100 !important;
+        @apply flex flex-col text-center text-light-100 truncate w-[21rem] !important;
     }
 
     .delete-file-name {
-        @apply font-medium text-brand-100 !important;
+        @apply font-medium text-brand-100 truncate !important;
     }
 
     .modal-cancel-button {

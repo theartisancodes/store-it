@@ -11,6 +11,7 @@ import { MAX_FILE_SIZE } from '@/constants';
 import { useToast } from '@/hooks/use-toast';
 import { uploadFile } from '@/lib/actions/file.actions';
 import { usePathname } from 'next/navigation';
+import { notifySuccess } from '@/hooks/useToastify';
 
 interface Props {
   ownerId: string;
@@ -56,6 +57,7 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
       });
 
       await Promise.all(uploadPromises);
+      notifySuccess('File uploaded successfully');
     },
     [ownerId, accountId, path]
   );
@@ -68,6 +70,7 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
   ) => {
     e.stopPropagation();
     setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+    notifySuccess('File removed successfully');
   };
 
   return (
