@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 
+import React from 'react';
+
 declare type FileType = 'document' | 'image' | 'video' | 'audio' | 'other';
 
 declare interface ActionType {
@@ -8,10 +10,10 @@ declare interface ActionType {
   value: string;
 }
 
-declare interface SearchParamProps {
-  params?: Promise<SegmentParams>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+// declare interface SearchParamProps {
+//   params?: Promise<SegmentParams>;
+//   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+// }
 
 declare interface UploadFileProps {
   file: File;
@@ -68,9 +70,9 @@ declare interface ThumbnailProps {
   className?: string;
   imageClassName?: string;
 }
-
-declare interface ShareInputProps {
-  file: Models.Document;
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onRemove: (email: string) => void;
-}
+//
+// declare interface ShareInputProps {
+//   file: Models.Document;
+//   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+//   onRemove: (email: string) => void;
+// }
