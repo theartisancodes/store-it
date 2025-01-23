@@ -19,6 +19,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { createAccount, signInUser } from '@/lib/actions/user.actions';
 import OtpModal from '@/components/OTPModal';
+import { notifyError } from '@/hooks/useToastify';
 
 type FormType = 'sign-in' | 'sign-up';
 
@@ -60,6 +61,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
       setAccountId(user.accountId);
     } catch {
       setErrorMessage('Failed to create account. Please try again.');
+      notifyError(errorMessage);
     } finally {
       setIsLoading(false);
     }
