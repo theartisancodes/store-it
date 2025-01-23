@@ -7,7 +7,6 @@ import { parseStringify } from '@/lib/utils';
 import { cookies } from 'next/headers';
 import { avatarPlaceholderUrl } from '@/constants';
 import { redirect } from 'next/navigation';
-import { notifyError } from '@/hooks/useToastify';
 
 const getUserByEmail = async (email: string) => {
   const { databases } = await createAdminClient();
@@ -35,9 +34,6 @@ export const sendEmailOTP = async ({ email }: { email: string }) => {
     return session.userId;
   } catch (error) {
     handleError(error, 'Failed to send email OTP');
-    const errorMsg =
-      error instanceof Error ? error.message : 'Failed to send email OTP.';
-    notifyError(errorMsg);
   }
 };
 
@@ -94,9 +90,6 @@ export const verifySecret = async ({
     return parseStringify({ sessionId: session.$id });
   } catch (error) {
     handleError(error, 'Failed to verify OTP');
-    const errorMsg =
-      error instanceof Error ? error.message : 'Failed to verify OTP.';
-    notifyError(errorMsg);
   }
 };
 
@@ -116,11 +109,7 @@ export const getCurrentUser = async () => {
 
     return parseStringify(user.documents[0]);
   } catch (error) {
-    const errorMsg =
-      error instanceof Error
-        ? error.message
-        : 'An error occurred and we cannot get your user details, please try again later.';
-    notifyError(errorMsg);
+    handleError(error, 'Failed to get current user');
   }
 };
 
@@ -148,8 +137,5 @@ export const signInUser = async ({ email }: { email: string }) => {
     return parseStringify({ accountId: null, error: 'User not found' });
   } catch (error) {
     handleError(error, 'Failed to sign in user');
-    const errorMsg =
-      error instanceof Error ? error.message : 'Failed to sign in user.';
-    notifyError(errorMsg);
   }
 };

@@ -15,7 +15,6 @@ import {
   UpdateFileUsersProps,
   UploadFileProps
 } from '@/types';
-import { notifyError, notifySuccess } from '@/hooks/useToastify';
 
 const handleError = (error: unknown, message: string) => {
   console.log(error, message);
@@ -61,20 +60,12 @@ export const uploadFile = async ({
       .catch(async (error: unknown) => {
         await storage.deleteFile(appwriteConfig.bucketId, bucketFile.$id);
         handleError(error, 'Failed to create file document');
-        const errorMsg =
-          error instanceof Error
-            ? error.message
-            : 'Failed to create file document..';
-        notifyError(errorMsg);
       });
 
     revalidatePath(path);
     return parseStringify(newFile);
   } catch (error) {
     handleError(error, 'Failed to upload file');
-    const errorMsg =
-      error instanceof Error ? error.message : 'Failed to upload file.';
-    notifyError(errorMsg);
   }
 };
 
@@ -130,11 +121,6 @@ export const getFiles = async ({
     return parseStringify(files);
   } catch (error) {
     handleError(error, 'Failed to get files');
-    const errorMsg =
-      error instanceof Error
-        ? error.message
-        : 'An error occurred and  has failed to fetch files.';
-    notifyError(errorMsg);
   }
 };
 
@@ -161,9 +147,6 @@ export const renameFile = async ({
     return parseStringify(updatedFile);
   } catch (error) {
     handleError(error, 'Failed to rename file');
-    const errorMsg =
-      error instanceof Error ? error.message : 'Failed to rename file.';
-    notifyError(errorMsg);
   }
 };
 
@@ -188,9 +171,6 @@ export const updateFileUsers = async ({
     return parseStringify(updatedFile);
   } catch (error) {
     handleError(error, 'Failed to rename file');
-    const errorMsg =
-      error instanceof Error ? error.message : 'Failed to rename file.';
-    notifyError(errorMsg);
   }
 };
 
@@ -216,9 +196,6 @@ export const deleteFile = async ({
     return parseStringify({ status: 'success' });
   } catch (error) {
     handleError(error, 'Failed to delete file');
-    const errorMsg =
-      error instanceof Error ? error.message : 'Failed to delete file.';
-    notifyError(errorMsg);
   }
 };
 
